@@ -3,19 +3,19 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>EditableGrid - Minimal demo - Creating grid in Javascript</title>
+		<title>EditableGrid</title>
 		
 		<script src="lib/editablegrid.js"></script>
-		<!-- [DO NOT DEPLOY] --> <script src="lib/editablegrid_renderers.js" ></script>
-		<!-- [DO NOT DEPLOY] --> <script src="lib/editablegrid_editors.js" ></script>
-		<!-- [DO NOT DEPLOY] --> <script src="lib/editablegrid_validators.js" ></script>
-		<!-- [DO NOT DEPLOY] --> <script src="lib/editablegrid_utils.js" ></script>
-		<!-- [DO NOT DEPLOY] --> <script src="lib/editablegrid_charts.js" ></script>
-		<!-- [DO NOT DEPLOY] --> <script src="jquery/jquery-1.6.4.min.js" ></script>
-		<!-- [DO NOT DEPLOY] --> <script src="jquery/jquery-ui-1.8.16.custom.min.js" ></script>
+		<script src="lib/editablegrid_renderers.js" ></script>
+		<script src="lib/editablegrid_editors.js" ></script>
+		<script src="lib/editablegrid_validators.js" ></script>
+		<script src="lib/editablegrid_utils.js" ></script>
+		<script src="lib/editablegrid_charts.js" ></script>
+		<script src="jquery/jquery-1.6.4.min.js" ></script>
+		<script src="jquery/jquery-ui-1.8.16.custom.min.js" ></script>
 
 		<link rel="stylesheet" href="../../editablegrid.css" type="text/css" media="screen">
-		<link rel="stylesheet" href="/style.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen">
 		
 		<style>
 			body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; font-size:11px; }
@@ -23,17 +23,24 @@
 			a { color: #548dc4; text-decoration: none; }
 			a:hover { text-decoration: underline; }
 			#plc {
-				display: flex;
-				justify-content: center;
+				display: grid;
+				/*justify-content: center;*/
 			}
-			table.plc, table. { border-collapse: collapse; border: 1px solid #CCB; width: auto; font-size: 15px;}
-			table.plc td, table.testgrid th { padding: 5px; border: 1px solid #E0E0E0; }
-			table.plc th { background: #E5E5E5; text-align: left; font-size: 20px; }
+			.editablegrid-subgroup_id, .editablegrid-_id {
+				display: none;
+			}
+			table { border-radius: 10px;}
+			table.plc, table.math { border-collapse: collapse; border: 1px solid #CCB; width: auto; font-size: 15px;}
+			table.plc td, table.math td, table.math th, table.testgrid th { padding: 5px;  font-size: 20px; border: 1px solid #403b3b29;}
+			table.plc th, table.math th { background: #E5E5E5; text-align: left; font-size: 16px; height: 40px; }
+			td:nth-child(even), th:nth-child(even) {background: #CCC}
+			td:nth-child(odd),  th:nth-child(odd) {background: #FFF}
 			input.invalid { background: red; color: #FDFDFD; }
 		</style>
 		
 		<script>
 			var editableGrid;
+			var mathGrid;
 			window.onload = function() {
 				// this approach is interesting if you need to dynamically create data in Javascript 
 				// var metadata = [];
@@ -78,19 +85,20 @@
 									name: field,
 									label: field.toUpperCase(),
 									datatype: "string",
-									editable: 
-										(
-											field=="address" 
-											// || field=="data_type"
-										) 
-										? false:true})
+									editable: (field == "address" 
+											|| field=="data_type") 
+										? false : true,
+								})
 							}	
 						}
 						data.push({
-							_id: item._id,
+							No: index + 1,
 							values:	{
-								_id: index + 1, // 0
+								_id: item._id, // 0
 								name: item.name, // 1
+								subgroup_id: item.subgroup_id,
+								subgroup_name: item.subgroup_name,
+								subgroup_type: item.subgroup_type,
 								address: item.address, // 2
 								base_unit: item.base_unit, // 3
 								data_type: item.data_type, // 4
@@ -107,40 +115,124 @@
 							}	
 						})
 					})
-					plc[4].values = {};
-					plc[5].values = {};
-					plc[6].values = {};
+					// plc[4].values = {};
+					// plc[5].values = {};
+					// plc[6].values = {};
 					plc[7].values = {};
 					plc[8].values = {};
 					plc[9].values = {};
 					plc[10].values = {};
 					plc[11].values = {};
 					plc[12].values = {};
-					plc[13].values = {};
+					plc[13].values = {};	
+					plc[14].values = {};
+					plc[15].values = {};
+					plc[16].values = {};
 
-					plc[4].values["data_type"] = {"boolean": "boolean", "modbus": "modbus"};
-					plc[5].values["base_unit"] = {"kg": "kg", "": "base_unit"};
-					plc[6].values["writable"] = {"true": "TRUE", "false": "FALSE"};
-					plc[7].values["fixed_float"] = {"1":"1","2": "2","3": "3","4": "4"};
-					plc[8].values["reset"] = {"true": "TRUE", "false": "FALSE"};
-					plc[9].values["offset_type"] = {"": "None", "static":"Static", "type": "By Tag"};
-					plc[10].values["offset_method"] = {"divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
-					plc[11].values["offset_value"] = {"": "Enable"};
-					plc[12].values["offset_tag"] = {"": "Enable"};
-					plc[13].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "": "None"};
+					plc[7].values["data_type"] = {"boolean": "boolean", "modbus": "modbus"};
+					plc[8].values["base_unit"] = {"kg": "kg", "": "base_unit"};
+					plc[9].values["writable"] = {"true": "TRUE", "false": "FALSE"};
+					plc[10].values["fixed_float"] = {"1":"1","2": "2","3": "3","4": "4"};
+					plc[11].values["reset"] = {"true": "TRUE", "false": "FALSE"};
+					plc[12].values["offset_type"] = {"": "None", "static":"Static", "type": "By Tag"};
+					plc[13].values["offset_method"] = {"divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
+					plc[14].values["offset_value"] = {"": "Enable"};
+					plc[15].values["offset_tag"] = {"": "Enable"};
+					plc[16].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "": "None"};
 
 					editableGrid = new EditableGrid("DemoGridJsData", {
 						enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
 						editmode: "absolute", // change this to "fixed" to test out editorzone, and to "static" to get the old-school mode
 						editorzoneid: "edition", // will be used only if editmode is set to "fixed"
 						pageSize: 10,
-						maxBars: 10
+						maxBars: 10,
+					
 					});
+
+
 					editableGrid.load({"metadata": plc, "data": data});
 					editableGrid.renderGrid("plc", "plc");
+
+					editableGrid.editCell = function(rowIndex, columnIndex) {
+						var row = editableGrid.getRow(rowIndex);
+						var cell = editableGrid.getCell(rowIndex, 0)
+						var tagId = editableGrid.data[rowIndex].columns[0]
+						// tagId = 175 //175
+						const url = "https://api.autobits.in/api/tags/" + tagId + "/maths-new";
+						const getSecond = getJSON(url).then(res => {
+							var plc = [];
+							var data = [];
+							if (!res) {
+								return;
+							}
+							const item = res;
+								plc.push({ name: 'status', label: 'Status', datatype: "string" })
+								plc.push({ name: 'status_name_0', label: 'Status_name_0', datatype: "string" })
+								plc.push({ name: 'status_name_1', label: 'Status_name_1', datatype: "string" })
+								plc.push({ name: 'cycle', label: 'cycle', Datatype: "string" })
+								plc.push({ name: 'cycle_ranges', label: 'Cycle_ranges', datatype: "string" })
+								plc.push({ name: 'counter_enabler', label: 'Counter_enabler', datatype: "string" })
+								plc.push({ name: 'counter', label: 'Counter', datatype: "string" })
+								plc.push({ name: 'cycle_name_0_1', label: 'Cycle_name_0_1', datatype: "string" })
+								plc.push({ name: 'cycle_name_1_0', label: 'Cycle_name_1_0', datatype: "string" })
+								plc.push({ name: 'runtime_enabler', label: 'Runtime_enabler', datatype: "string" })
+								plc.push({ name: 'runtime', label: 'runtime', datatype: "string" })
+								plc.push({ name: 'rate', label: 'Rate', datatype: "string" })
+								plc.push({ name: 'rate_delived_unit', label: 'Rate_delived_unit', datatype: "string" })
+								plc.push({ name: 'rate_constant', label: 'Rate_constant', datatype: "string" })
+								plc.push({ name: 'mapping', label: 'Mapping', datatype: "string" })
+								plc.push({ name: 'mapping_reference', label: 'Mapping_reference', datatype: "string" })
+								// console.log(item.runtime_enabler, item.runtime__enabler);
+								data.push({
+									No: 0,
+									values:	{
+										status: item.status, // 0
+										status_name_0: item.status__name_0, // 1
+										status_name_1: item.status__name_1,
+										cycle: item.cycle,
+										cycle_ranges: item.cycle_ranges,
+										counter_enabler: item.counter__enabler?item.counter__enabler.toString() : item.counter__enabler, // 4
+										counter: item.counter, // 3
+										cycle_name_0_1: item.cycle__name_0_1,
+										cycle_name_1_0: item.cycle__name_1_0, // 2
+										runtime_enabler: item.runtime__enabler? item.runtime__enabler.toString(): item.runtime__enabler, //5
+										runtime: item.runtime, //6
+										rate: item.rate, //7
+										rate_delived_unit: item.rate__delived_unit? item.rate__delived_unit.toString() : item.rate__delived_unit, // 8
+										rate_constant: item.rate__constant? item.rate__constant.toString() : item.rate__constant, // 9 
+										mapping: item.mapping, // 10
+										mapping_reference: item.mapping_reference, // 11
+									}	
+								})
+							plc[5].values = {};
+							plc[9].values = {};
+							plc[12].values = {};
+							plc[13].values = {};	
+
+							plc[5].values["counter_enabler"] = {"1": "TRUE", "0": "FALSE"};
+							plc[9].values["runtime_enabler"] = {"1": "TRUE", "0": "FALSE"};
+							plc[12].values["rate_delived_unit"] = {"1": "TRUE", "0": "FALSE"};
+							plc[13].values["rate_constant"] = {"1": "TRUE", "0": "FALSE"};
+							
+							mathGrid = new EditableGrid("MathPLCTable", {
+								enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
+								editmode: "absolute", // change this to "fixed" to test out editorzone, and to "static" to get the old-school mode
+								editorzoneid: "edition", // will be used only if editmode is set to "fixed"
+								pageSize: 10,
+								maxBars: 10,
+							
+							});
+
+
+							mathGrid.load({"metadata": plc, "data": data});
+							mathGrid.renderGrid("math", "math");
+						})
+					}
 				});
 			}
 
+
+		
 
 			const getJSON = url => {
 				return new Promise((resolve, reject) => {
@@ -230,7 +322,7 @@
 	</div>
 		<div id="plc"></div>
 				
-		<div id="tablecontent"></div>
+		<div id="math"  style="margin-top: 20px;"></div>
 	</body>
 
 </html>
