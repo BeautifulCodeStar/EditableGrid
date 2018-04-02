@@ -1,0 +1,74 @@
+/** Responsive */
+
+
+/** iphone 2 -> 4 portrait and landscape */ 
+@media screen and (max-width: 960px ) {
+  .content  {
+		clear: both;
+		width: auto; 
+		padding: 20px;
+	}
+
+	#features { height: auto; }
+	.feature-wrapper { width: auto; float: none; border-bottom: 1px solid #f1f1f1;}
+    .feature_icon { width: auto; float: none;  text-align: center; padding: 0px 10px;}
+    .feature { text-align: center; float: none; width: auto;}
+    .feature_icon i { font-size: 2em;  }
+    #features h1 {margin: 10px 0px }
+	/*.feature-wrapper { width: 50% } */
+    #footer { position: relative; bottom: 0px; left: 0px; z-index: 10000; background-color: #313131; width: auto; padding: 10px; text-align: center}
+
+}
+@media screen and (max-width: 480px )
+ { 
+	.content  {
+		clear: both;
+		width: auto; 
+		padding: 20px;
+	}
+
+	#main h1 { font-size: 2em; margin: 0; padding: 50px 20px 20px 20px}
+	#about h1 { font-size: 2em; margin: 0; }
+	 #main h2 { font-size: 1.2em; margin: 10px 20px 20px 20px }
+     #about h2 { font-size: 1.4em; margin: 10px 20px 20px 20px }
+    .scrolldown {font-size: 2em; bottom: 30px;}
+    .btn { letter-spacing: 0; padding: 10px 40px;  }
+
+
+
+    #register {
+      padding: 5px 10px;
+      width: auto;
+      background: none;
+    }
+    #register input {
+      width: 100%;
+      padding: 5px 0px;
+      font-size: 1.3em;
+
+    }
+    #createaccountButton { background-color: #f42e7a; padding: 5px 20px; }
+   
+
+
+    #last  { padding: 10px; font-size: 1.1em; line-height: 1.8em  }
+
+
+    #download .downloadbutton { width: auto; float: none  }
+#download .downloadbutton a { margin: 10px; display: block; text-align: center }
+  
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+
+  #main h1 {  margin-top: 200px }
+
+  .scrolldown {  font-size: 6em;  }
+
+  #about p, #privacy p { font-size: 1.2em; font-weight: 100; }
+}
+
+
+

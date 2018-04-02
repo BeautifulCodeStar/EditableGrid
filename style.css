@@ -1,3 +1,30 @@
-#paginator { margin-top: 20px; }
+#paginator { margin-top: 20px; display: flex; justify-content: center; font-size: medium; }
 #paginator i { color: #636363; margin: 0 3px;}
 #pagecontrol { margin: 10px 0px; }
+a {
+    cursor: pointer;
+    text-decoration: none !important;
+    font-weight: 100
+}
+.fa-fast-backward:before {
+    content: "\f049";
+}
+.fa-backward:before {
+    content: "\f04a";
+}
+.fa-forward:before {
+    content: "\f04e";
+}
+.fa-fast-forward:before {
+    content: "\f050";
+}
+#paginator>a {
+	margin:0 5px;
+}
+table {
+	color: #302b2b;
+	overflow-y:scroll;
+}
+#pagniator a {
+	color: #f42e7a !important;
+}

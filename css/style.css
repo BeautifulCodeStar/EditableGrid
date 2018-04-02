@@ -1,0 +1,269 @@
+/* */
+html { 
+  height: 100%
+}
+body { height: 100%; margin: 0px; padding: 0px;
+ /* font-family: 'Open Sans', sans-serif;	 */
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1em;
+  color: #313131;      
+  width: 100%;
+  background-color: #f9f9f9;
+}
+img  { border: 0;}
+a {
+  color: #f42e7a;
+  cursor: pointer;
+  text-decoration: none
+}   
+h1 h2, h3 {
+  }
+a:hover { }
+.hidden {  display: none; }
+.white  {  color: #ffffff;}
+.col, .left 	{  float: left; }
+.right 	{  float: right; }
+.clear 	{ clear: both; }
+.green { color: #9fff01  }
+.red { color: #ff7868 }
+.big { font-size: 3em; margin: 5px 0px; }
+pre { border: 1px solid #313131; background-color: rgba(255,255,255,0.2); padding: 5px  }
+
+.container {
+  position: relative;
+  padding: 10px 0px;
+  clear: both;
+  height: 100%;
+  text-align: center;
+}  
+.container.noh {
+  height: auto;
+}
+
+#cookie_msg {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #313131;
+  z-index: 1000000;
+  color: #fff;
+  display: none;
+}
+#cookie_msg p {
+  text-align: center;
+  margin: 5px 0px 10px 0px;
+  line-height: 1.5em; 
+}
+#closecookiebutton { font-size: 2em; color: #fff; margin-left: 40px;}
+
+#main, #about {
+  background-image: url("images/bg.jpg");
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+} 
+#main { height: 60% }
+#main h1 { font-weight: 300; font-size: 4em; margin-top: 100px}
+#about { text-align: justify; }
+#about h1 { font-weight: 300; font-size: 4em; margin-top: 10px; text-align: center}
+#about p { line-height: 1.8em }
+
+
+#main h2, #about h2 { font-weight: 300; font-size: 3em; text-align: center }
+.scrolldown { position: absolute; bottom: 20px; font-size: 4em; width: 100%; text-align: center }
+.sharing { position: absolute; top: 0; right: 0; font-size: 1.4em;  text-align: center; padding: 10px;  }
+.sharing a { color: #fff; margin: 3px; }
+#main .btn:hover { background-color: #f42e7a; }
+
+.content {
+  padding: 20px;
+  width: 960px;
+  margin: 0 auto;
+}
+.content p { clear: both; font-size: 1.3em; line-height: 1.8em;}
+
+.content.about {
+
+  background-color: rgba(0,0,0,0.3);
+  padding-top: 20px;
+  margin-top: 50px;
+
+}
+
+#features {  background-color: #f9f9f9;}
+.feature-wrapper { width: 480px; padding: 10px 0px; float: left }
+.feature_icon { float: left; width: 40px; padding: 10px; }
+.feature { text-align: left; float:right; width: 380px; background-color: #f9f9f9; padding: 0px 20px; }
+.feature_icon i { font-size: 2em; color: #636363 }
+.feature p { line-height: 1.7em; font-size: 1.2em;  }
+.feature  {  color: #636363 }
+.feature h2 {  color: #414141; margin-bottom: 0; font-weight: 700; margin-top: 5px }
+.featurelist { text-align: left; }
+.featurelist li { padding: 5px }
+
+.btn {
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  padding: 20px 70px;
+  display: inline-block;
+  margin: 15px 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+  outline: none;
+  position: relative;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  text-decoration: none;
+
+  color: #fff;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.3);
+}
+
+#register {
+  padding: 10px;
+  width: 400px;
+  margin: 0 auto;
+
+  color: #fff;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.3);
+  display: none;
+}
+
+#register input {
+  background: rgba(255,255,255,0.5);
+  width: 380px;
+  padding: 5px;
+  font-size: 1.5em;
+  font-weight: 300;
+  color: #fff;
+  text-align: center;
+  border: 0;
+}
+#register input:focus {
+  border: 1px solid #f1f1f1;
+} 
+#register .row { margin: 10px 0px; position: relative }
+#createaccountButton { background-color: #f42e7a; padding: 15px 40px; }
+#register .row .mark {
+  position: absolute;
+  top: -8px;
+  right:  0px;
+}
+#register .row .mark i { font-size: 2em; }
+
+#register_share {
+  text-align: center;
+  display: none;
+  margin-top: 20px;
+}
+#register_share a {  display: inline-block; }
+#register_share i {
+  font-size: 1.4em;
+  margin: 0 3px;
+}
+#register_share .fbg {
+  background-color: #8b9dc3;
+  color: #fff;
+}
+#register_share .fb {
+  color: #8b9dc3;
+}
+
+#register_share .twg {
+  background-color: #4297ed;
+  color: #fff;
+}
+#register_share .tw {
+  color: #4298ed;
+}
+#register_share i.big { 
+    font-size: 3.5em;
+    margin: 0px 10px;
+}
+
+
+#last {
+  background-color:  #424242;
+  padding: 20px 0;
+  font-size: 2em;
+  color: #fff
+}
+#last a { color: #fff;  text-decoration: underline; margin-right: 30px; }
+
+#download {
+  background-image: url("images/bgdownload.jpg");
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  color: #fff;
+  text-align: center; 
+  padding-top: 30px;
+}
+#download h2 { font-weight: 300; font-size: 2em; }
+#download .downloadbutton { width: 50%; float: left  }
+#download .downloadbutton a { margin: 50px; display: block; text-align: center }
+#download .downloadbutton a img { width: 100%; height: auto; }
+
+
+/* all */
+::-webkit-input-placeholder { color:#555555; font-weight: 300;  }
+::-moz-placeholder { color:#555555; font-weight: 300 } /* firefox 19+ */
+:-ms-input-placeholder { color:#555555; font-weight: 300 } /* ie */
+input:-moz-placeholder { color:#555555;font-weight: 300  }
+
+#footer { position: relative; background-color: #313131; text-align: center; padding: 10px 0px;}
+#footer a { color: #d1d1d1; margin: 0 10px  }
+
+
+
+/* for demo in home page */
+table.testgrid { width: 100%; }
+table.testgrid td {    
+  padding: 5px;
+}      
+table.testgrid td i { margin: 0px 5px; color: #636363 }
+table.testgrid th {
+	background: #636363;   
+	border: 1px solid #b1b1b1;  
+	text-transform: uppercase;
+	font-size: 0.9em;
+	font-weight: 300;
+	padding: 6px;
+	color: #fff;
+	
+}  
+table.testgrid th a {
+  color: #fff;
+  
+}
+table.testgrid td {
+	border: 1px solid #b1b1b1;
+}  
+
+#demo #message { font-size: 0.9em;  color: #1eb32c;   }
+#paginator { margin-top: 20px; }
+#paginator i { color: #636363; margin: 0 3px;}
+#pagecontrol { margin: 10px 0px; }
+
+
+#menu { display: none;position: fixed; top: 40px;  background-color: rgba(0,0,0,0.6);}
+#menu.visible  { display: block;   z-index: 10000; }
+#menu ul { list-style-type: none; padding: 0;   }
+#menu ul  li{  padding: 10px 20px }
+#menu ul  li a{ color: #fff; font-weight: 300  }
+
+#toggle { position: fixed; left: 0; padding: 10px; z-index: 10000; cursor: pointer; }
+#toggle i { color: #fff;  font-size: 1.5em; }
+
