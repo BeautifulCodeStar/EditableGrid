@@ -43,7 +43,8 @@
 			td:nth-child(odd),  td:nth-child(odd) {background: #FFF}
 			input.invalid { background: red; color: #FDFDFD; }
 			/*tabletr:hover {background: #FFF !important; }	*/
-
+			table.plc tr:hover { background: black !important;}
+			td:visited { background: red;}
 		</style>
 		
 		<script>
@@ -75,14 +76,15 @@
 								plc.push({ name: 'interval', label: 'Interval', datatype: "string", editable: true })
 								plc.push({ name: 'writable', label: 'Writable', datatype: "string", editable: true })
 								plc.push({ name: 'fixed_float', label: 'Fixed_float', datatype: "string", editable: true })
-								plc.push({ name: 'offset_method', label: 'Offset_method', datatype: "string", editable: true })
-								plc.push({ name: 'offset_tag', label: 'Offset_tag', datatype: "string", editable: true })
-								plc.push({ name: 'offset_type', label: 'Offset_type', datatype: "string", editable: true })
-								plc.push({ name: 'offset_value', label: 'Offset_value', datatype: "string", editable: true })
-								plc.push({ name: 'reduce_data', label: 'Reduce_data', datatype: "string", editable: true })
-								plc.push({ name: 'reduce_type', label: 'Reduce_type', datatype: "string", editable: true })
 								plc.push({ name: 'reset', label: 'Reset', datatype: "string", editable: true })
-							// }	
+								plc.push({ name: 'offset_type', label: 'Offset_type', datatype: "string", editable: true })
+								plc.push({ name: 'offset_method', label: 'Offset_method', datatype: "string", editable: true })
+								plc.push({ name: 'offset_value', label: 'Offset_value', datatype: "string", editable: true })
+								plc.push({ name: 'offset_tag', label: 'Offset_tag', datatype: "string", editable: true })
+								plc.push({ name: 'reduce_type', label: 'Reduce_type', datatype: "string", editable: true })
+								plc.push({ name: 'reduce_data', label: 'Reduce_data', datatype: "string", editable: true })
+							// }
+
 						}
 						data.push({
 							No: index + 1,
@@ -98,13 +100,13 @@
 								interval: item.interval, // 3
 								writable: item.writable, //14
 								fixed_float: item.fixed_float, //5
-								offset_method: item.offset_method, //6
-								offset_tag: item.offset_tag, //7
-								offset_type: item.offset_type, // 8
-								offset_value: item.offset_value, // 9 
-								reduce_data: item.reduce_data, // 10
-								reduce_type: item.reduce_type, // 11
 								reset: item.reset, // 12
+								offset_type: item.offset_type, // 8
+								offset_method: item.offset_method, //6
+								offset_value: item.offset_value, // 9 
+								offset_tag: item.offset_tag, //7
+								reduce_type: item.reduce_type, // 11
+								reduce_data: item.reduce_data, // 10
 							}	
 						})
 					})
@@ -116,21 +118,21 @@
 					plc[12].values = {};
 					plc[13].values = {};	
 					plc[14].values = {};
+					plc[15].values = {};
 					plc[16].values = {};
-					plc[17].values = {};
 
-					plc[6].values["data_type"] = {"boolean": "boolean", "modbus": "modbus"};
+					plc[6].values["data_type"] = {"boolean": "boolean", "true"=>"true", "false"=>"false", "modbus": "modbus", "analog", "analog"};
 					plc[7].values["base_unit"] = {"kg": "kg", "": "base_unit"};
 					plc[9].values["writable"] = {"true": "TRUE", "false": "FALSE"};
 					plc[10].values["fixed_float"] = {"":"0","1":"1","2": "2","3": "3","4": "4"};
-					plc[11].values["offset_method"] = {"": "None","divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
-					plc[12].values["offset_tag"] = {"": "Enable"};
-					plc[13].values["offset_type"] = {"": "None", "static":"Static", "type": "By Tag"};
+					plc[11].values["reset"] = {"true": "TRUE", "false": "FALSE"};
+					plc[12].values["offset_type"] = {"": "None", "static":"Static", "type": "By Tag"};
+					plc[13].values["offset_method"] = {"": "None","divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
 					plc[14].values["offset_value"] = {"": "Enable"};
+					plc[15].values["offset_tag"] = {"": "Enable"};
 					plc[16].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "": "None"};
-					plc[17].values["reset"] = {"true": "TRUE", "false": "FALSE"};
 
-					editableGrid = new EditableGrid("DemoGridJsData", {
+					editableGrid = new EditableGrid("first_table", {
 						enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
 						editmode: "absolute", // change this to "fixed" to test out editorzone, and to "static" to get the old-school mode
 						editorzoneid: "edition", // will be used only if editmode is set to "fixed"
