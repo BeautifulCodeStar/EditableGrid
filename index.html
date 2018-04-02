@@ -115,9 +115,6 @@
 							}	
 						})
 					})
-					// plc[4].values = {};
-					// plc[5].values = {};
-					// plc[6].values = {};
 					plc[7].values = {};
 					plc[8].values = {};
 					plc[9].values = {};
@@ -182,7 +179,7 @@
 								plc.push({ name: 'rate_constant', label: 'Rate_constant', datatype: "string" })
 								plc.push({ name: 'mapping', label: 'Mapping', datatype: "string" })
 								plc.push({ name: 'mapping_reference', label: 'Mapping_reference', datatype: "string" })
-								// console.log(item.runtime_enabler, item.runtime__enabler);
+
 								data.push({
 									No: 0,
 									values:	{
@@ -204,6 +201,7 @@
 										mapping_reference: item.mapping_reference, // 11
 									}	
 								})
+
 							plc[5].values = {};
 							plc[9].values = {};
 							plc[12].values = {};
@@ -222,8 +220,6 @@
 								maxBars: 10,
 							
 							});
-
-
 							mathGrid.load({"metadata": plc, "data": data});
 							mathGrid.renderGrid("math", "math");
 						})
@@ -231,7 +227,10 @@
 				});
 			}
 
-
+			const filter = () => {
+				const filterStr = document.querySelector('#filter').value;
+				editableGrid.filter(filterStr, undefined);
+			}
 		
 
 			const getJSON = url => {
@@ -318,7 +317,7 @@
 
 		<!-- Grid filter -->
 		<label for="filter">Filter :</label>
-		<input type="text" id="filter">
+		<input type="text" id="filter" onkeyup="filter()">
 	</div>
 		<div id="plc"></div>
 				
