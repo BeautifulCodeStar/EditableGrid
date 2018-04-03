@@ -31,7 +31,7 @@
 				display: grid;
 				/*justify-content: center;*/
 			}
-			.editablegrid-subgroup_id, .editablegrid-_id, .editablegrid-subgroup_name {
+			.editablegrid-subgroup_id, .editablegrid-_id {
 				display: none;
 			}
 			th { text-align: center; padding:5px 10px;}
@@ -68,7 +68,7 @@
 								plc.push({ name: '_id', label: 'TagId', datatype: "string", editable: false })
 								plc.push({ name: 'subgroup_id', label: 'Subgroup Id', datatype: "string", editable: false })
 								plc.push({ name: 'subgroup_name', label: 'Subgroup name', datatype: "string", editable: false })
-								plc.push({ name: 'subgroup_type', label: 'Subgroup type', datatype: "string", editable: false })
+								plc.push({ name: 'subgroup_type', label: 'Subgroup type', datatype: "string", editable: true })
 								plc.push({ name: 'name', label: 'Name', datatype: "string", editable: true })
 								plc.push({ name: 'address', label: 'Address', datatype: "string", editable: false })
 								plc.push({ name: 'data_type', label: 'Data type', datatype: "string", editable: true })
