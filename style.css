@@ -6,6 +6,10 @@ a {
     text-decoration: none !important;
     font-weight: 100
 }
+body {
+    overflow: none;
+}
+table#plc { overflow-y: scroll !important;}
 .fa-fast-backward:before {
     content: "\f049";
 }
@@ -28,3 +32,39 @@ table {
 #pagniator a {
 	color: #f42e7a !important;
 }
+#pagecontrol {
+    font-size: 20px;
+    margin-left: 20px;
+}
+#math, #plc { background: #eeeeee;    margin: 20px; overflow: hidden; 
+    border-radius: 20px;}
+#plc{margin-bottom: 1px !important;}
+#math  {margin-top: 1px !important;}
+#math-info { display: inline;}
+#math-info div { margin: 10px 20px; width: 20%;}
+.math-label {
+  font-size: 13px;
+  padding: 5px;
+}
+.form-input {
+  display: inline-grid;
+}
+.input-tag {
+  height: 28px;
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 1px 10px;
+}
+#third-block div {
+    width: 16% !important;
+    margin: 10px 20px;
+}
+#forth-block div {
+    width: 20% !important;
+    margin: 10px 20px;
+}
+.math-title {
+    padding: 5px 22px;
+    background: gainsboro;
+}
+::placeholder { padding: 1px 10px;}

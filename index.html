@@ -37,10 +37,10 @@
 			th { text-align: center; padding:5px 10px;}
 			table { border-radius: 10px;}
 			table.plc, table.math { border-collapse: collapse; border: 1px solid #CCB; width: auto; font-size: 15px;}
-			table.plc td, table.math td{ padding: 5px;  font-size: 15px; border: 1px solid #403b3b29; width:50px; height: 33px;}
-			table.plc th, table.math th { background: #E5E5E5; text-align: left; font-size: 16px; height: 40px; color:black !important; }
-			td:nth-child(even), td:nth-child(even) {background: #eeeeee}
-			td:nth-child(odd),  td:nth-child(odd) {background: #FFF}
+			table.plc td, table.math td{ padding: 5px;  font-size: 15px; border: 1px solid #403b3b29; width:50px; height: 28px;}
+			table.plc th, table.math th { background: gainsboro; text-align: left; font-size: 16px; height: 40px; color:black !important; }
+			td:nth-child(even){background: #eeeeee}
+			td:nth-child(odd) {background: #FFF}
 			input.invalid { background: red; color: #FDFDFD; }
 			/*tabletr:hover {background: #FFF !important; }	*/
 			table.plc tr:hover { background: black !important;}
@@ -56,35 +56,24 @@
 					var data = [];
 					res.forEach((item, index) => {
 						if (index === 0) {
-							// for (var field in item) {
-								// plc.push({ 
-								// 	name: field,
-								// 	label: field.toUpperCase(),
-								// 	datatype: "string",
-								// 	editable: (field == "address" 
-								// 			) 
-								// 		? false : true,
-								// })
-								plc.push({ name: '_id', label: 'TagId', datatype: "string", editable: false })
-								plc.push({ name: 'subgroup_id', label: 'Subgroup Id', datatype: "string", editable: false })
-								plc.push({ name: 'subgroup_name', label: 'Subgroup name', datatype: "string", editable: false })
-								plc.push({ name: 'subgroup_type', label: 'Subgroup type', datatype: "string", editable: true })
-								plc.push({ name: 'name', label: 'Name', datatype: "string", editable: true })
-								plc.push({ name: 'address', label: 'Address', datatype: "string", editable: false })
-								plc.push({ name: 'data_type', label: 'Data type', datatype: "string", editable: true })
-								plc.push({ name: 'base_unit', label: 'Base unit', datatype: "string", editable: true })
-								plc.push({ name: 'interval', label: 'Interval', datatype: "string", editable: true })
-								plc.push({ name: 'writable', label: 'Writable', datatype: "string", editable: true })
-								plc.push({ name: 'fixed_float', label: 'Fixed_float', datatype: "string", editable: true })
-								plc.push({ name: 'reset', label: 'Reset', datatype: "string", editable: true })
-								plc.push({ name: 'offset_type', label: 'Offset_type', datatype: "string", editable: true })
-								plc.push({ name: 'offset_method', label: 'Offset_method', datatype: "string", editable: true })
-								plc.push({ name: 'offset_value', label: 'Offset_value', datatype: "string", editable: true })
-								plc.push({ name: 'offset_tag', label: 'Offset_tag', datatype: "string", editable: true })
-								plc.push({ name: 'reduce_type', label: 'Reduce_type', datatype: "string", editable: true })
-								plc.push({ name: 'reduce_data', label: 'Reduce_data', datatype: "string", editable: true })
-							// }
-
+							plc.push({ name: '_id', label: 'TagId', datatype: "string", editable: false })
+							plc.push({ name: 'subgroup_id', label: 'Subgroup Id', datatype: "string", editable: false })
+							plc.push({ name: 'subgroup_name', label: 'Subgroup name', datatype: "string", editable: false })
+							plc.push({ name: 'subgroup_type', label: 'Subgroup type', datatype: "string", editable: true })
+							plc.push({ name: 'name', label: 'Name', datatype: "string", editable: true })
+							plc.push({ name: 'address', label: 'Address', datatype: "string", editable: false })
+							plc.push({ name: 'data_type', label: 'Data type', datatype: "string", editable: true })
+							plc.push({ name: 'base_unit', label: 'Base unit', datatype: "string", editable: true })
+							plc.push({ name: 'interval', label: 'Interval', datatype: "string", editable: true })
+							plc.push({ name: 'writable', label: 'Writable', datatype: "string", editable: true })
+							plc.push({ name: 'fixed_float', label: 'Fixed_float', datatype: "string", editable: true })
+							plc.push({ name: 'reset', label: 'Reset', datatype: "string", editable: true })
+							plc.push({ name: 'offset_type', label: 'Offset_type', datatype: "string", editable: true })
+							plc.push({ name: 'offset_method', label: 'Offset_method', datatype: "string", editable: true })
+							plc.push({ name: 'offset_value', label: 'Offset_value', datatype: "integer", editable: true })
+							plc.push({ name: 'offset_tag', label: 'Offset_tag', datatype: "string", editable: true })
+							plc.push({ name: 'reduce_type', label: 'Reduce_type', datatype: "string", editable: true })
+							plc.push({ name: 'reduce_data', label: 'Reduce_data', datatype: "string", editable: true })
 						}
 						data.push({
 							No: index + 1,
@@ -112,25 +101,34 @@
 					})
 					plc[6].values = {};
 					plc[7].values = {};
+					plc[8].values = {};
 					plc[9].values = {};
 					plc[10].values = {};
 					plc[11].values = {};
 					plc[12].values = {};
 					plc[13].values = {};	
-					plc[14].values = {};
+					// plc[14].values = {};
 					plc[15].values = {};
 					plc[16].values = {};
 
-					plc[6].values["data_type"] = {"boolean": "boolean", "true":"true", "false":"false", "modbus": "modbus", "analog":"analog"};
-					plc[7].values["base_unit"] = {"kg": "kg", "": "base_unit"};
+					plc[6].values["data_type"] = {"true":"true", "false":"false", "modbus": "modbus", "analog":"analog"};
+					plc[7].values["base_unit"] = {"kg": "kg", "": "none", "litre":"litre"};
+					plc[8].values["inetrval"] = {"250": "250ms", "500": "500ms", "750": "750ms", "1":"1 Second", "30":"30 Seconds", "60":"1 minute"};
 					plc[9].values["writable"] = {"true": "TRUE", "false": "FALSE"};
 					plc[10].values["fixed_float"] = {"":"0","1":"1","2": "2","3": "3","4": "4"};
 					plc[11].values["reset"] = {"true": "TRUE", "false": "FALSE"};
-					plc[12].values["offset_type"] = {"": "None", "static":"Static", "type": "By Tag"};
+					plc[12].values["offset_type"] = {"none": "None", "static":"Static", "tag": "By Tag"};
 					plc[13].values["offset_method"] = {"": "None","divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
-					plc[14].values["offset_value"] = {"": "Enable"};
-					plc[15].values["offset_tag"] = {"": "Enable"};
-					plc[16].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "": "None"};
+					// plc[14].values["offset_value"] = {"": "Enable"};
+					var offsetTag = {};
+					res.forEach(item=> {
+						var key = item.name.replace(/\s/g, '');
+						// plc[15].values["offset_tag"][key] = item.name;
+						offsetTag[key] = item.name
+					})
+					console.log(offsetTag)
+					plc[15].values["offset_tag"] = offsetTag;
+					plc[16].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "static":"Static",  "": "None"};
 
 					editableGrid = new EditableGrid("first_table", {
 						enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
@@ -143,7 +141,9 @@
 					editableGrid.load({"metadata": plc, "data": data});
 					editableGrid.renderGrid("plc", "plc");
 					editableGrid.updatePaginator();
-					
+					editableGrid.modelChanged = function(rowIndex, columnIndex, oldValue, newValue, row) {
+						return true;
+					}
 					editableGrid.editCell = function(rowIndex, columnIndex) {
 						var row = editableGrid.getRow(rowIndex);
 						// #e7d12d78
@@ -199,6 +199,21 @@
 										mapping_reference: item.mapping_reference, // 11
 									}	
 								})
+								document.querySelector('#status').value = item.status;
+								document.querySelector('#status_name_0').value = item.status__name_0;
+								document.querySelector('#status_name_1').value = item.status__name_1;
+								document.querySelector('#cycle').value = item.cycle;
+								document.querySelector('#cycle_ranges').value = item.cycle__ranges;
+								document.querySelector('#counter_enabler').value = item.counter__enabler;
+								document.querySelector('#counter').value = item.counter;
+								document.querySelector('#cycle_name_0_1').value = item.cycle__name_0_1;
+								document.querySelector('#cycle_name_1_0').value = item.cycle__name_1_0;
+								document.querySelector('#runtime_enabler').value = item.runtime__enabler;
+								document.querySelector('#runtime').value = item.runtime;
+								document.querySelector('#rate').value = item.rate;
+								document.querySelector('#rate_derived_unit').value = item.rate__derived_unit;
+								document.querySelector('#mapping').value = item.mapping;
+								document.querySelector('#mapping_reference').value = item.mapping_reference;
 
 								plc[5].values = {};
 								plc[9].values = {};
@@ -209,43 +224,48 @@
 								plc[9].values["runtime_enabler"] = {"1": "TRUE", "0": "FALSE"};
 								plc[12].values["rate_delived_unit"] = {"1": "TRUE", "0": "FALSE"};
 								plc[13].values["rate_constant"] = {"1": "TRUE", "0": "FALSE"};
-								
-								mathGrid = new EditableGrid("MathPLCTable", {
-									enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
-									editmode: "absolute", // change this to "fixed" to test out editorzone, and to "static" to get the old-school mode
-									editorzoneid: "edition", // will be used only if editmode is set to "fixed"
-									pageSize: 10,
-									maxBars: 10,
-								
-								});
-								mathGrid.load({"metadata": plc, "data": data});
-								mathGrid.renderGrid("math", "math");
 							})
-							var target = this.getCell(rowIndex, columnIndex);
-								with (this) {
-
-									var column = columns[columnIndex];
-									if (column) {
-
-										// if another row has been selected: callback
-										if (rowIndex > -1) {
-											rowSelected(lastSelectedRowIndex, rowIndex);				
-											lastSelectedRowIndex = rowIndex;
-										}
-
-										// edit current cell value
-										if (!column.editable) { readonlyWarning(column); }
-										else {
-											if (rowIndex < 0) { 
-												if (column.headerEditor && isHeaderEditable(rowIndex, columnIndex))
-													column.headerEditor.edit(rowIndex, columnIndex, target, column.label);
-											}
-											else if (column.cellEditor && isEditable(rowIndex, columnIndex))
-												column.cellEditor.edit(rowIndex, columnIndex, target, getValueAt(rowIndex, columnIndex));
-										}
-									}
-										
+							if (columnIndex === 13 || columnIndex === 14 || columnIndex === 15) {
+								var offsetType = editableGrid.data[rowIndex].columns[12];
+								if (offsetType === "none") {
+									return true;
+								} else if (offsetType === "static" && columnIndex === 15) {
+									return true;
+								} else if (offsetType === "tag" && columnIndex === 14) {
+									return true;
 								}
+							}
+							if (columnIndex === 17) {
+								var reduceType = editableGrid.data[rowIndex].columns[16];
+								if (reduceType !== "static" && reduceType !== "percent") {
+									return true;
+								}
+							}
+							var target = this.getCell(rowIndex, columnIndex);
+							with (this) {
+
+								var column = columns[columnIndex];
+								if (column) {
+
+									// if another row has been selected: callback
+									if (rowIndex > -1) {
+										rowSelected(lastSelectedRowIndex, rowIndex);				
+										lastSelectedRowIndex = rowIndex;
+									}
+
+									// edit current cell value
+									if (!column.editable) { readonlyWarning(column); }
+									else {
+										if (rowIndex < 0) { 
+											if (column.headerEditor && isHeaderEditable(rowIndex, columnIndex))
+												column.headerEditor.edit(rowIndex, columnIndex, target, column.label);
+										}
+										else if (column.cellEditor && isEditable(rowIndex, columnIndex))
+											column.cellEditor.edit(rowIndex, columnIndex, target, getValueAt(rowIndex, columnIndex));
+									}
+								}
+									
+							}
 						}
 				});
 			}
@@ -272,7 +292,7 @@
 					ajaxRequest.send("");
 				})
 			}
-
+		
 			EditableGrid.prototype.initializeGrid = function() 
 			{
 				with (this) {
@@ -329,7 +349,7 @@
 	
 	<body>
 	<div id="pagecontrol">
-		<label for="pagecontrol">Rows per page: </label>
+		<!-- <label for="pagecontrol">Rows per page: </label>
 		<select id="pagesize" name="pagesize">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -339,7 +359,7 @@
 			<option value="30">30</option>
 			<option value="40">40</option>
 			<option value="50">50</option>
-		</select>
+		</select> -->
 
 		<!-- Grid filter -->
 		<label for="filter">Filter :</label>
@@ -347,7 +367,88 @@
 	</div>
 		<div id="plc"></div>
 		<div id="paginator" onclick="editableGrid.updatePaginator()"></div>
-		<div id="math" align="center" style="margin-top: 20px;"></div>
+		<!-- <div id="math" align="center" style="margin-top: 20px;"></div> -->
+		<div id="math">
+			<div class="math-title">
+				<h1>Maths</h1>
+			</div>
+			<div id="math-info">
+				<div class="form-input">
+					<label class="math-label" for="status">Status</label>
+					<input type="text" class="input-tag" id="status">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="status_name_0">Status_name_0</label>
+					<input type="text" class="input-tag" id="status_name_0">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="status_name_1">Status_name_1</label>
+					<input type="text" class="input-tag" id="status_name_1">
+				</div>
+			</div>
+
+			<div id="math-info" style="display:block">
+				<div class="form-input">
+					<label class="math-label" for="cycle">Cycle</label>
+					<input type="text" class="input-tag" id="cycle">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="cycle_ranges">Cycle_ranges</label>
+					<input type="text" class="input-tag" id="cycle_ranges">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="cycle_name_0_1">Cycle_name_0_1</label>
+					<input type="text" class="input-tag" id="cycle_name_0_1">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="cycle_name_1_0">Cycle_name_1_0</label>
+					<input type="text" class="input-tag" id="cycle_name_1_0">
+				</div>	
+			</div>
+
+			<div id="third-block" style="display:block">
+				<div class="form-input">
+					<label class="math-label" for="counter_enabler">Counter__enabler</label>
+					<input type="text" class="input-tag" id="counter_enabler">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="counter">Counter</label>
+					<input type="text" class="input-tag" id="counter">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="rate">Rate</label>
+					<input type="text" class="input-tag" id="rate">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="rate_derived_unit">Rate__derived_unit</label>
+					<input type="text" class="input-tag" id="rate_derived_unit">
+				</div>	
+				<div class="form-input">
+					<label class="math-label" for="rate__constant">Rate__constant</label>
+					<input type="text" class="input-tag" id="rate_constant">
+				</div>	
+			</div>
+
+			<div id="forth-block" style="display:block">
+				<div class="form-input">
+					<label class="math-label" for="mapping">Mapping</label>
+					<input type="text" class="input-tag" id="mapping">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="mapping_reference">Mapping_reference</label>
+					<input type="text" class="input-tag" id="mapping_reference">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="runtime__enabler">Runtime__enabler</label>
+					<input type="text" class="input-tag" id="runtime_enabler">
+				</div>
+				<div class="form-input">
+					<label class="math-label" for="runtime">Runtime</label>
+					<input type="text" class="input-tag" id="runtime">
+				</div>	
+			</div>
+		</div>
+
 	</body>
 
 </html>

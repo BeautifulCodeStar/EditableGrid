@@ -267,3 +267,14 @@ table.testgrid td {
 #toggle { position: fixed; left: 0; padding: 10px; z-index: 10000; cursor: pointer; }
 #toggle i { color: #fff;  font-size: 1.5em; }
 
+#math-info { display: inline-grid;}
+.math-label {
+  font-size: 18px;
+}
+.form-input {
+  display: inline-grid;
+}
+.input-tag {
+  height: 26px;
+  border-radius: 5px;
+}
