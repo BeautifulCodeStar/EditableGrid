@@ -15,10 +15,9 @@
 		<script src="jquery/jquery-ui-1.8.16.custom.min.js" ></script>
 
 		<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,700" rel="stylesheet" type="text/css">
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 		<link href="css/editablegrid.css" rel="stylesheet" type="text/css">
 		<link href="css/normalize.css" rel="stylesheet" type="text/css">
-		<!-- <link href="css/responsive.css" rel="stylesheet" type="text/css"> -->
-		<!-- <link href="css/style.css" rel="stylesheet" type="text/css"> -->
 		<link href="css/font-awesome.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen">
 		
@@ -29,6 +28,8 @@
 			a:hover { text-decoration: underline; }
 			#plc {
 				display: grid;
+				overflow: scroll;
+				height: 400px;
 				/*justify-content: center;*/
 			}
 			.editablegrid-subgroup_id, .editablegrid-_id {
@@ -45,6 +46,7 @@
 			/*tabletr:hover {background: #FFF !important; }	*/
 			table.plc tr:hover { background: black !important;}
 			td:visited { background: red;}
+			select {height: 33px; font-size: 14px;}
 		</style>
 		
 		<script>
@@ -68,6 +70,7 @@
 							plc.push({ name: 'writable', label: 'Writable', datatype: "string", editable: true })
 							plc.push({ name: 'fixed_float', label: 'Fixed_float', datatype: "string", editable: true })
 							plc.push({ name: 'reset', label: 'Reset', datatype: "string", editable: true })
+							plc.push({ name: 'check', label: 'Check', datatype: "boolean", editable: true })
 							plc.push({ name: 'offset_type', label: 'Offset_type', datatype: "string", editable: true })
 							plc.push({ name: 'offset_method', label: 'Offset_method', datatype: "string", editable: true })
 							plc.push({ name: 'offset_value', label: 'Offset_value', datatype: "integer", editable: true })
@@ -90,6 +93,7 @@
 								writable: item.writable, //14
 								fixed_float: item.fixed_float, //5
 								reset: item.reset, // 12
+								check: false, // 12
 								offset_type: item.offset_type, // 8
 								offset_method: item.offset_method, //6
 								offset_value: item.offset_value, // 9 
@@ -105,11 +109,11 @@
 					plc[9].values = {};
 					plc[10].values = {};
 					plc[11].values = {};
-					plc[12].values = {};
+					// plc[12].values = {};
 					plc[13].values = {};	
-					// plc[14].values = {};
-					plc[15].values = {};
+					plc[14].values = {};
 					plc[16].values = {};
+					plc[17].values = {};
 
 					plc[6].values["data_type"] = {"true":"true", "false":"false", "modbus": "modbus", "analog":"analog"};
 					plc[7].values["base_unit"] = {"kg": "kg", "": "none", "litre":"litre"};
@@ -117,8 +121,8 @@
 					plc[9].values["writable"] = {"true": "TRUE", "false": "FALSE"};
 					plc[10].values["fixed_float"] = {"":"0","1":"1","2": "2","3": "3","4": "4"};
 					plc[11].values["reset"] = {"true": "TRUE", "false": "FALSE"};
-					plc[12].values["offset_type"] = {"none": "None", "static":"Static", "tag": "By Tag"};
-					plc[13].values["offset_method"] = {"": "None","divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
+					plc[13].values["offset_type"] = {"none": "None", "static":"Static", "tag": "By Tag"};
+					plc[14].values["offset_method"] = {"": "None","divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
 					// plc[14].values["offset_value"] = {"": "Enable"};
 					var offsetTag = {};
 					res.forEach(item=> {
@@ -127,8 +131,8 @@
 						offsetTag[key] = item.name
 					})
 					console.log(offsetTag)
-					plc[15].values["offset_tag"] = offsetTag;
-					plc[16].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "static":"Static",  "": "None"};
+					plc[16].values["offset_tag"] = offsetTag;
+					plc[17].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "static":"Static",  "": "None"};
 
 					editableGrid = new EditableGrid("first_table", {
 						enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
@@ -225,8 +229,8 @@
 								plc[12].values["rate_delived_unit"] = {"1": "TRUE", "0": "FALSE"};
 								plc[13].values["rate_constant"] = {"1": "TRUE", "0": "FALSE"};
 							})
-							if (columnIndex === 13 || columnIndex === 14 || columnIndex === 15) {
-								var offsetType = editableGrid.data[rowIndex].columns[12];
+							if (columnIndex === 16 || columnIndex === 14 || columnIndex === 15) {
+								var offsetType = editableGrid.data[rowIndex].columns[13];
 								if (offsetType === "none") {
 									return true;
 								} else if (offsetType === "static" && columnIndex === 15) {
@@ -235,8 +239,8 @@
 									return true;
 								}
 							}
-							if (columnIndex === 17) {
-								var reduceType = editableGrid.data[rowIndex].columns[16];
+							if (columnIndex === 18) {
+								var reduceType = editableGrid.data[rowIndex].columns[17];
 								if (reduceType !== "static" && reduceType !== "percent") {
 									return true;
 								}
@@ -409,7 +413,12 @@
 			<div id="third-block" style="display:block">
 				<div class="form-input">
 					<label class="math-label" for="counter_enabler">Counter__enabler</label>
-					<input type="text" class="input-tag" id="counter_enabler">
+					<!-- <input type="text" class="input-tag" id="counter_enabler"> -->
+					<select id="counter_enabler">
+						<option value="">None</option>
+						<option value="0">True</option>
+						<option value="1">False</option>
+					</select>
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="counter">Counter</label>
@@ -421,11 +430,19 @@
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="rate_derived_unit">Rate__derived_unit</label>
-					<input type="text" class="input-tag" id="rate_derived_unit">
+					<select id="rate_derived_unit">
+						<option value="">None</option>	
+						<option value="0">True</option>
+						<option value="1">False</option>
+					</select>
 				</div>	
 				<div class="form-input">
 					<label class="math-label" for="rate__constant">Rate__constant</label>
-					<input type="text" class="input-tag" id="rate_constant">
+					<select id="rate_constant">
+						<option value="">None</option>
+						<option value="0">True</option>
+						<option value="1">False</option>
+					</select>
 				</div>	
 			</div>
 
@@ -440,7 +457,11 @@
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="runtime__enabler">Runtime__enabler</label>
-					<input type="text" class="input-tag" id="runtime_enabler">
+					<select id="runtime_enabler">
+						<option value="">None</option>
+						<option value="0">True</option>
+						<option value="1">False</option>
+					</select>
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="runtime">Runtime</label>
