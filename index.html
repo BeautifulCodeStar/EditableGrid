@@ -48,13 +48,17 @@
 			th:nth-child(odd) {
 				background: #7b7d8438;
 			}
+			@media (max-width:400px) {
+				select {
+					display: block;
+				}
+			}
 			td:nth-child(even){background: #eeeeee}
 			td:nth-child(odd) {background: #FFF}
 			input.invalid { background: red; color: #FDFDFD; }
 			/*tabletr:hover {background: #FFF !important; }	*/
-			table.plc tr:hover { background: black !important; }
 			td:visited { background: red;}
-			select {height: 33px; font-size: 14px; border-radius: 17px;}
+			select {height: 33px; font-size: 14px; border-radius: 17px;outline: none;}
 			#math {    box-shadow: 2px 5px 19px #a6a6a6;}
 			tbody tr {height: 75px;}
 		</style>
