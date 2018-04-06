@@ -144,7 +144,6 @@
 
 					editableGrid.load({"metadata": plc, "data": data});
 					editableGrid.renderGrid("plc", "plc");
-					editableGrid.updatePaginator();
 					editableGrid.modelChanged = function(rowIndex, columnIndex, oldValue, newValue, row) {
 						return true;
 					}
@@ -233,9 +232,9 @@
 								var offsetType = editableGrid.data[rowIndex].columns[13];
 								if (offsetType === "none") {
 									return true;
-								} else if (offsetType === "static" && columnIndex === 15) {
+								} else if (offsetType === "static" && columnIndex === 16) {
 									return true;
-								} else if (offsetType === "tag" && columnIndex === 14) {
+								} else if (offsetType === "tag" && columnIndex === 15) {
 									return true;
 								}
 							}
