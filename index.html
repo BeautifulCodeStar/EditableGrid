@@ -30,6 +30,7 @@
 				display: grid;
 				overflow: scroll;
 				height: 400px;
+			    box-shadow: 2px 5px 19px #a6a6a6;
 				/*justify-content: center;*/
 			}
 			.editablegrid-subgroup_id, .editablegrid-_id {
@@ -38,15 +39,24 @@
 			th { text-align: center; padding:5px 10px;}
 			table { border-radius: 10px;}
 			table.plc, table.math { border-collapse: collapse; border: 1px solid #CCB; width: auto; font-size: 15px;}
-			table.plc td, table.math td{ padding: 5px;  font-size: 15px; border: 1px solid #403b3b29; width:50px; height: 28px;}
-			table.plc th, table.math th { background: gainsboro; text-align: left; font-size: 16px; height: 40px; color:black !important; }
+			table.plc td{ padding: 5px;  font-size: 15px; border: 1px solid #403b3b29; width:50px; height: 28px;}
+			table.plc th { text-align: left; font-size: 16px; height: 40px; color:black !important; 
+			    border: 1px solid #eee;}
+			th:nth-child(even) {
+				background: #cfcfd1;
+			}
+			th:nth-child(odd) {
+				background: #7b7d8438;
+			}
 			td:nth-child(even){background: #eeeeee}
 			td:nth-child(odd) {background: #FFF}
 			input.invalid { background: red; color: #FDFDFD; }
 			/*tabletr:hover {background: #FFF !important; }	*/
-			table.plc tr:hover { background: black !important;}
+			table.plc tr:hover { background: black !important; }
 			td:visited { background: red;}
-			select {height: 33px; font-size: 14px;}
+			select {height: 33px; font-size: 14px; border-radius: 17px;}
+			#math {    box-shadow: 2px 5px 19px #a6a6a6;}
+			tbody tr {height: 75px;}
 		</style>
 		
 		<script>
@@ -67,10 +77,9 @@
 							plc.push({ name: 'data_type', label: 'Data type', datatype: "string", editable: true })
 							plc.push({ name: 'base_unit', label: 'Base unit', datatype: "string", editable: true })
 							plc.push({ name: 'interval', label: 'Interval', datatype: "string", editable: true })
-							plc.push({ name: 'writable', label: 'Writable', datatype: "string", editable: true })
+							plc.push({ name: 'writable', label: 'Writable', datatype: "boolean", editable: true })
 							plc.push({ name: 'fixed_float', label: 'Fixed_float', datatype: "string", editable: true })
-							plc.push({ name: 'reset', label: 'Reset', datatype: "string", editable: true })
-							plc.push({ name: 'check', label: 'Check', datatype: "boolean", editable: true })
+							plc.push({ name: 'reset', label: 'Reset', datatype: "boolean", editable: true })
 							plc.push({ name: 'offset_type', label: 'Offset_type', datatype: "string", editable: true })
 							plc.push({ name: 'offset_method', label: 'Offset_method', datatype: "string", editable: true })
 							plc.push({ name: 'offset_value', label: 'Offset_value', datatype: "integer", editable: true })
@@ -93,7 +102,6 @@
 								writable: item.writable, //14
 								fixed_float: item.fixed_float, //5
 								reset: item.reset, // 12
-								check: false, // 12
 								offset_type: item.offset_type, // 8
 								offset_method: item.offset_method, //6
 								offset_value: item.offset_value, // 9 
@@ -106,33 +114,35 @@
 					plc[6].values = {};
 					plc[7].values = {};
 					plc[8].values = {};
-					plc[9].values = {};
+					// plc[9].values = {};
 					plc[10].values = {};
-					plc[11].values = {};
+					// plc[11].values = {};
 					// plc[12].values = {};
-					plc[13].values = {};	
-					plc[14].values = {};
+					plc[12].values = {};	
+					plc[13].values = {};
+					plc[15].values = {};
 					plc[16].values = {};
-					plc[17].values = {};
 
 					plc[6].values["data_type"] = {"true":"true", "false":"false", "modbus": "modbus", "analog":"analog"};
 					plc[7].values["base_unit"] = {"kg": "kg", "": "none", "litre":"litre"};
 					plc[8].values["inetrval"] = {"250": "250ms", "500": "500ms", "750": "750ms", "1":"1 Second", "30":"30 Seconds", "60":"1 minute"};
-					plc[9].values["writable"] = {"true": "TRUE", "false": "FALSE"};
+					// plc[9].values["writable"] = {"true": "TRUE", "false": "FALSE"};
 					plc[10].values["fixed_float"] = {"":"0","1":"1","2": "2","3": "3","4": "4"};
-					plc[11].values["reset"] = {"true": "TRUE", "false": "FALSE"};
-					plc[13].values["offset_type"] = {"none": "None", "static":"Static", "tag": "By Tag"};
-					plc[14].values["offset_method"] = {"": "None","divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
+					// plc[11].values["reset"] = {"true": "TRUE", "false": "FALSE"};
+					plc[12].values["offset_type"] = {"none": "None", "static":"Static", "tag": "By Tag"};
+					plc[13].values["offset_method"] = {"": "None","divide": "Divide", "multiply": "Multiply", "add": "Add", "subract": "Subract"};
 					// plc[14].values["offset_value"] = {"": "Enable"};
 					var offsetTag = {};
+
 					res.forEach(item=> {
 						var key = item.name.replace(/\s/g, '');
 						// plc[15].values["offset_tag"][key] = item.name;
 						offsetTag[key] = item.name
 					})
+
 					console.log(offsetTag)
-					plc[16].values["offset_tag"] = offsetTag;
-					plc[17].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "static":"Static",  "": "None"};
+					plc[15].values["offset_tag"] = offsetTag;
+					plc[16].values["reduce_type"] = {"absoulte": "Absolute", "fixed": "Fixed", "percent": "Percent", "static":"Static",  "": "None"};
 
 					editableGrid = new EditableGrid("first_table", {
 						enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
@@ -228,18 +238,18 @@
 								plc[12].values["rate_delived_unit"] = {"1": "TRUE", "0": "FALSE"};
 								plc[13].values["rate_constant"] = {"1": "TRUE", "0": "FALSE"};
 							})
-							if (columnIndex === 16 || columnIndex === 14 || columnIndex === 15) {
-								var offsetType = editableGrid.data[rowIndex].columns[13];
+							if (columnIndex === 13 || columnIndex === 14 || columnIndex === 15) {
+								var offsetType = editableGrid.data[rowIndex].columns[12];
 								if (offsetType === "none") {
 									return true;
-								} else if (offsetType === "static" && columnIndex === 16) {
+								} else if (offsetType === "static" && columnIndex === 15) {
 									return true;
-								} else if (offsetType === "tag" && columnIndex === 15) {
+								} else if (offsetType === "tag" && columnIndex === 14) {
 									return true;
 								}
 							}
-							if (columnIndex === 18) {
-								var reduceType = editableGrid.data[rowIndex].columns[17];
+							if (columnIndex === 17) {
+								var reduceType = editableGrid.data[rowIndex].columns[16];
 								if (reduceType !== "static" && reduceType !== "percent") {
 									return true;
 								}
