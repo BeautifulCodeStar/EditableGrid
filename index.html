@@ -28,8 +28,9 @@
 			a:hover { text-decoration: underline; }
 			#plc {
 				display: grid;
-				overflow: scroll;
+				overflow-y: scroll;
 				height: 400px;
+				width: 1861px;
 			    box-shadow: 2px 5px 19px #a6a6a6;
 				/*justify-content: center;*/
 			}
@@ -38,22 +39,31 @@
 			}
 			th { text-align: center; padding:5px 10px;}
 			table { border-radius: 10px;}
-			table.plc, table.math { border-collapse: collapse; border: 1px solid #CCB; width: auto; font-size: 15px;}
+			table.plc, table.math { border-collapse: collapse; width: auto; font-size: 15px;}
 			table.plc td{ padding: 5px;  font-size: 15px; border: 1px solid #403b3b29; width:50px; height: 28px;}
 			table.plc th { text-align: left; font-size: 16px; height: 40px; color:black !important; 
 			    border: 1px solid #eee;}
+			table thead {
+				position: absolute;
+			    /* z-index: 10; */
+			    width: 1843px;
+			    background: white;
+			}
 			th:nth-child(even) {
 				background: #cfcfd1;
 			}
 			th:nth-child(odd) {
 				background: #7b7d8438;
 			}
+			td {
+				width: 115px !important;
+			}
 			@media (max-width:400px) {
 				select {
 					display: block;
 				}
 			}
-			td:nth-child(even){background: #eeeeee}
+			td:nth-child(even){background: #eeeeee;}
 			td:nth-child(odd) {background: #FFF}
 			input.invalid { background: red; color: #FDFDFD; }
 			/*tabletr:hover {background: #FFF !important; }	*/
@@ -61,6 +71,17 @@
 			#math select {height: 33px; font-size: 14px; border-radius: 17px;outline: none;}
 			#math {    box-shadow: 2px 5px 19px #a6a6a6;}
 			tbody tr {height: 75px;}
+			tbody, thead tr {
+				display: table;
+				width: 100%;
+				table-layout: fixed;
+			}
+			tbody {
+				margin-top: 59px;
+			}
+			* {
+				box-sizing: border-box;
+			}
 		</style>
 		
 		<script>
@@ -178,44 +199,7 @@
 								return;
 							}
 							const item = res;
-								plc.push({ name: 'status', label: 'Status', datatype: "string", editable: true })
-								plc.push({ name: 'status_name_0', label: 'Status_name_0', datatype: "string", editable: true })
-								plc.push({ name: 'status_name_1', label: 'Status_name_1', datatype: "string", editable: true })
-								plc.push({ name: 'cycle', label: 'cycle', Datatype: "string", editable: false })
-								plc.push({ name: 'cycle_ranges', label: 'Cycle_ranges', datatype: "string", editable: true })
-								plc.push({ name: 'counter_enabler', label: 'Counter_enabler', datatype: "string", editable: true })
-								plc.push({ name: 'counter', label: 'Counter', datatype: "string" })
-								plc.push({ name: 'cycle_name_0_1', label: 'Cycle_name_0_1', datatype: "string", editable: true })
-								plc.push({ name: 'cycle_name_1_0', label: 'Cycle_name_1_0', datatype: "string", editable: true })
-								plc.push({ name: 'runtime_enabler', label: 'Runtime_enabler', datatype: "string", editable: true })
-								plc.push({ name: 'runtime', label: 'runtime', datatype: "string", editable: true })
-								plc.push({ name: 'rate', label: 'Rate', datatype: "string", editable: true })
-								plc.push({ name: 'rate_delived_unit', label: 'Rate_delived_unit', datatype: "string", editable: true })
-								plc.push({ name: 'rate_constant', label: 'Rate_constant', datatype: "string", editable: true })
-								plc.push({ name: 'mapping', label: 'Mapping', datatype: "string", editable: true })
-								plc.push({ name: 'mapping_reference', label: 'Mapping_reference', datatype: "string", editable: true })
-
-								data.push({
-									No: 0,
-									values:	{
-										status: item.status, // 0
-										status_name_0: item.status__name_0, // 1
-										status_name_1: item.status__name_1,
-										cycle: item.cycle,
-										cycle_ranges: item.cycle_ranges,
-										counter_enabler: item.counter__enabler?item.counter__enabler.toString() : item.counter__enabler, // 4
-										counter: item.counter, // 3
-										cycle_name_0_1: item.cycle__name_0_1,
-										cycle_name_1_0: item.cycle__name_1_0, // 2
-										runtime_enabler: item.runtime__enabler? item.runtime__enabler.toString(): item.runtime__enabler, //5
-										runtime: item.runtime, //6
-										rate: item.rate, //7
-										rate_delived_unit: item.rate__delived_unit? item.rate__delived_unit.toString() : item.rate__delived_unit, // 8
-										rate_constant: item.rate__constant? item.rate__constant.toString() : item.rate__constant, // 9 
-										mapping: item.mapping, // 10
-										mapping_reference: item.mapping_reference, // 11
-									}	
-								})
+							
 								document.querySelector('#status').value = item.status;
 								document.querySelector('#status_name_0').value = item.status__name_0;
 								document.querySelector('#status_name_1').value = item.status__name_1;
@@ -317,66 +301,12 @@
 				}
 			};
 
-			EditableGrid.prototype.updatePaginator = function()
-			{
-				var paginator = $("#paginator").empty();
-				var nbPages = this.getPageCount();
-
-				// get interval
-				var interval = this.getSlidingPageInterval(20);
-				// var interval = 20;
-				if (interval == null) return;
-				
-				//get pages in interval (with links except for the current page)
-				var pages = this.getPagesInInterval(interval, function(pageIndex, isCurrent) {
-					if (isCurrent) return "" + (pageIndex + 1);
-					return $("<a>").css("cursor", "pointer").html(pageIndex + 1).click(function(event) { editableGrid.setPageIndex(parseInt($(this).html()) - 1); });
-				});
-					
-				// "first" link
-				var link = $("<a>").html("<i class='fa fa-fast-backward'></i>");
-				if (!this.canGoBack()) link.css({ opacity : 0.4, filter: "alpha(opacity=40)" });
-				else link.css("cursor", "pointer").click(function(event) { editableGrid.firstPage(); });
-				paginator.append(link);
-
-				// "prev" link
-				link = $("<a>").html("<i class='fa fa-backward'></i>");
-				if (!this.canGoBack()) link.css({ opacity : 0.4, filter: "alpha(opacity=40)" });
-				else link.css("cursor", "pointer").click(function(event) { editableGrid.prevPage(); });
-				paginator.append(link);
-
-				// pages
-				for (p = 0; p < pages.length; p++) paginator.append(pages[p]).append(" | ");
-				
-				// "next" link
-				link = $("<a>").html("<i class='fa fa-forward'></i>");
-				if (!this.canGoForward()) link.css({ opacity : 0.4, filter: "alpha(opacity=40)" });
-				else link.css("cursor", "pointer").click(function(event) { editableGrid.nextPage(); });
-				paginator.append(link);
-
-				// "last" link
-				link = $("<a>").html("<i class='fa fa-fast-forward'></i>");
-				if (!this.canGoForward()) link.css({ opacity : 0.4, filter: "alpha(opacity=40)" });
-				else link.css("cursor", "pointer").click(function(event) { editableGrid.lastPage(); });
-				paginator.append(link);
-			};
 		</script>
 		
 	</head>
 	
 	<body>
 	<div id="pagecontrol">
-		<!-- <label for="pagecontrol">Rows per page: </label>
-		<select id="pagesize" name="pagesize">
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="15">15</option>
-			<option value="20">20</option>
-			<option value="25">25</option>
-			<option value="30">30</option>
-			<option value="40">40</option>
-			<option value="50">50</option>
-		</select> -->
 
 		<!-- Grid filter -->
 		<label for="filter">Filter :</label>
