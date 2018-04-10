@@ -85,7 +85,34 @@
 		<script>
 			var editableGrid;
 			var mathGrid;
+
+			function changeEventHandler(event) {
+			    var changedData = {
+			    	status: document.querySelector('#status').value,
+			    	status__name_0: document.querySelector('#status_name_0').value,
+			    	status__name_1: document.querySelector('#status_name_1').value,
+			    	cycle: document.querySelector('#cycle').value,
+			    	cycle_ranges: document.querySelector('#cycle_ranges').value,
+			    	counter__enabler: document.querySelector('#counter_enabler').value,
+			    	counter: document.querySelector('#counter').value,
+			    	cycle__name_0_1: document.querySelector('#cycle_name_0_1').value,
+			    	cycle__name_1_0: document.querySelector('#cycle_name_1_0').value,
+			    	runtime__enabler: document.querySelector('#runtime_enabler').value,
+			    	runtime: document.querySelector('#runtime').value,
+			    	rate: document.querySelector('#rate').value,
+			    	rate__derived_unit: document.querySelector('#rate_derived_unit').value,
+			    	mapping: document.querySelector('#mapping').value,
+			    	mapping__reference: document.querySelector('#mapping_reference').value,
+			    }
+			    console.log("Second Table Data:'\n'", changedData);
+
+			    // save operation
+			}
+
 			window.onload = function() {
+
+
+
 				var result = getJSON("https://api.autobits.in/api/subgroups/2/tags-new").then(res => {
 					var plc = [];
 					var data = [];
@@ -177,9 +204,36 @@
 
 					editableGrid.load({"metadata": plc, "data": data});
 					editableGrid.renderGrid("plc", "plc");
+
 					editableGrid.modelChanged = function(rowIndex, columnIndex, oldValue, newValue, row) {
+						var row = editableGrid.data[rowIndex].columns;
+						var changedData = {
+							_id: row[0], // 0
+							subgroup_id: row[1],
+							subgroup_name: row[2],
+							subgroup_type: row[3],
+							name: row[4], // 1
+							address: row[5], // 2
+							data_type: row[6], // 4
+							base_unit: row[7], // 3
+							interval: row[8], // 3
+							writable: row[9], //14
+							fixed_float: row[10], //5
+							reset: row[11], // 12
+							offset_type: row[12], // 8
+							offset_method: row[13], //6
+							offset_value: row[14], // 9 
+							offset_tag: row[15], //7
+							reduce_type: row[16], // 11
+							reduce_data: row[17], // 10
+						}
+						console.log("first Table Data:\n", changedData)
+						
+						//save operation
+
 						return true;
 					}
+
 					editableGrid.editCell = function(rowIndex, columnIndex) {
 						var row = editableGrid.getRow(rowIndex);
 						// #e7d12d78
@@ -212,17 +266,8 @@
 								document.querySelector('#rate').value = item.rate;
 								document.querySelector('#rate_derived_unit').value = item.rate__derived_unit;
 								document.querySelector('#mapping').value = item.mapping;
-								document.querySelector('#mapping_reference').value = item.mapping_reference;
+								document.querySelector('#mapping_reference').value = item.mapping__reference;
 
-								plc[5].values = {};
-								plc[9].values = {};
-								plc[12].values = {};
-								plc[13].values = {};	
-
-								plc[5].values["counter_enabler"] = {"1": "TRUE", "0": "FALSE"};
-								plc[9].values["runtime_enabler"] = {"1": "TRUE", "0": "FALSE"};
-								plc[12].values["rate_delived_unit"] = {"1": "TRUE", "0": "FALSE"};
-								plc[13].values["rate_constant"] = {"1": "TRUE", "0": "FALSE"};
 							})
 							if (columnIndex === 13 || columnIndex === 14 || columnIndex === 15) {
 								var offsetType = editableGrid.data[rowIndex].columns[12];
@@ -269,8 +314,7 @@
 				});
 			}
 
-			var kk = {}
-			
+
 
 			const filter = () => {
 				const filterStr = document.querySelector('#filter').value;
@@ -305,7 +349,6 @@
 	
 	<body>
 	<div id="pagecontrol">
-
 		<!-- Grid filter -->
 		<label for="filter">Filter :</label>
 		<input type="text" id="filter" onkeyup="filter()">
@@ -320,34 +363,34 @@
 			<div id="math-info">
 				<div class="form-input">
 					<label class="math-label" for="status">Status</label>
-					<input type="text" class="input-tag" id="status">
+					<input type="text" class="input-tag" id="status" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="status_name_0">Status_name_0</label>
-					<input type="text" class="input-tag" id="status_name_0">
+					<input type="text" class="input-tag" id="status_name_0" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="status_name_1">Status_name_1</label>
-					<input type="text" class="input-tag" id="status_name_1">
+					<input type="text" class="input-tag" id="status_name_1" onchange="changeEventHandler()">
 				</div>
 			</div>
 
 			<div id="math-info" style="display:block">
 				<div class="form-input">
 					<label class="math-label" for="cycle">Cycle</label>
-					<input type="text" class="input-tag" id="cycle">
+					<input type="text" class="input-tag" id="cycle" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="cycle_ranges">Cycle_ranges</label>
-					<input type="text" class="input-tag" id="cycle_ranges">
+					<input type="text" class="input-tag" id="cycle_ranges" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="cycle_name_0_1">Cycle_name_0_1</label>
-					<input type="text" class="input-tag" id="cycle_name_0_1">
+					<input type="text" class="input-tag" id="cycle_name_0_1" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="cycle_name_1_0">Cycle_name_1_0</label>
-					<input type="text" class="input-tag" id="cycle_name_1_0">
+					<input type="text" class="input-tag" id="cycle_name_1_0" onchange="changeEventHandler()">
 				</div>	
 			</div>
 
@@ -355,34 +398,34 @@
 				<div class="form-input">
 					<label class="math-label" for="counter_enabler">Counter__enabler</label>
 					<!-- <input type="text" class="input-tag" id="counter_enabler"> -->
-					<select id="counter_enabler">
+					<select id="counter_enabler" class="input-tag" onchange="changeEventHandler()">
 						<option value="">None</option>
-						<option value="0">True</option>
-						<option value="1">False</option>
+						<option value="1">True</option>
+						<option value="0">False</option>
 					</select>
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="counter">Counter</label>
-					<input type="text" class="input-tag" id="counter">
+					<input type="text" class="input-tag" id="counter" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="rate">Rate</label>
-					<input type="text" class="input-tag" id="rate">
+					<input type="text" class="input-tag" id="rate" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="rate_derived_unit">Rate__derived_unit</label>
-					<select id="rate_derived_unit">
-						<option value="">None</option>	
-						<option value="0">True</option>
-						<option value="1">False</option>
+					<select id="rate_derived_unit" class="input-tag" onchange="changeEventHandler()">
+						<<option value="">None</option>
+						<option value="1">True</option>
+						<option value="0">False</option>
 					</select>
 				</div>	
 				<div class="form-input">
 					<label class="math-label" for="rate__constant">Rate__constant</label>
-					<select id="rate_constant">
+					<select id="rate_constant" class="input-tag" onchange="changeEventHandler()">
 						<option value="">None</option>
-						<option value="0">True</option>
-						<option value="1">False</option>
+						<option value="1">True</option>
+						<option value="0">False</option>
 					</select>
 				</div>	
 			</div>
@@ -390,23 +433,23 @@
 			<div id="forth-block" style="display:block">
 				<div class="form-input">
 					<label class="math-label" for="mapping">Mapping</label>
-					<input type="text" class="input-tag" id="mapping">
+					<input type="text" class="input-tag" id="mapping" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="mapping_reference">Mapping_reference</label>
-					<input type="text" class="input-tag" id="mapping_reference">
+					<input type="text" class="input-tag" id="mapping_reference" onchange="changeEventHandler()">
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="runtime__enabler">Runtime__enabler</label>
-					<select id="runtime_enabler">
+					<select id="runtime_enabler" class="input-tag" onchange="changeEventHandler()">
 						<option value="">None</option>
-						<option value="0">True</option>
-						<option value="1">False</option>
+						<option value="1">True</option>
+						<option value="0">False</option>
 					</select>
 				</div>
 				<div class="form-input">
 					<label class="math-label" for="runtime">Runtime</label>
-					<input type="text" class="input-tag" id="runtime">
+					<input type="text" class="input-tag" id="runtime" onchange="changeEventHandler()">
 				</div>	
 			</div>
 		</div>
