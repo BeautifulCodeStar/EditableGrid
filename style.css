@@ -69,3 +69,9 @@ table {
     background: #7b7d846b;
 }
 ::placeholder { padding: 1px 10px;}
+th:nth-of-type(3) {
+  border-top-left-radius: 15px;
+}
+th:nth-of-type(18) {
+  border-top-right-radius: 15px;
+}
